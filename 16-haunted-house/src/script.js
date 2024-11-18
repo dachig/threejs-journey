@@ -3,6 +3,41 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { Timer } from "three/addons/misc/Timer.js";
 import GUI from "lil-gui";
 import { Sky } from "three/addons/objects/Sky.js";
+import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
+import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
+
+const names = [
+  "Sophia Johnson",
+  "Liam Brown",
+  "Olivia Davis",
+  "Noah Wilson",
+  "Emma Martinez",
+  "Ava Taylor",
+  "Isabella White",
+  "Mason Harris",
+  "Mia Lewis",
+  "Lucas Clark",
+  "Ethan Walker",
+  "Charlotte Young",
+  "James Hall",
+  "Amelia Allen",
+  "Alexander King",
+  "Evelyn Scott",
+  "Michael Green",
+  "Abigail Adams",
+  "Benjamin Baker",
+  "Ella Nelson",
+  "Dachi Giorgobiani",
+  "Jackson Carter",
+  "Scarlett Ramirez",
+  "Logan Mitchell",
+  "Harper Perez",
+  "Sebastian Roberts",
+  "Sofia Turner",
+  "Daniel Phillips",
+  "Aria Campbell",
+  "Elijah Parker",
+];
 
 /**
  * Base
@@ -133,6 +168,11 @@ const doorMetalnessTexture = textureLoader.load("./door/metalness.webp");
 const doorRoughnessTexture = textureLoader.load("./door/roughness.webp");
 
 doorColorTexture.colorSpace = THREE.SRGBColorSpace;
+
+//FONTTEXTURE
+const matCapFontTexture = textureLoader.load("/fonts/matcaps/2.png");
+matCapFontTexture.colorSpace = THREE.SRGBColorSpace;
+
 /**
 /**
  * House
@@ -264,15 +304,38 @@ for (let i = 0; i < 30; i++) {
   grave.rotation.y = (Math.random() - 0.5) * 0.4;
   grave.rotation.z = (Math.random() - 0.5) * 0.4;
 
+  const fontLoader = new FontLoader();
+  fontLoader.load("/fonts/Melted Monster_Regular.json", (font) => {
+    const textGeometry = new TextGeometry(names[i], {
+      font: font,
+      size: 0.05,
+      depth: 0.02,
+      curveSegments: 5,
+    });
+    const material = new THREE.MeshMatcapMaterial({
+      matcap: matCapFontTexture,
+    });
+    const text = new THREE.Mesh(textGeometry, material);
+    text.position.x = x;
+    text.position.z = z + 0.1;
+    text.position.y = grave.position.y;
+    text.rotation.x = grave.rotation.x;
+    text.rotation.y = grave.rotation.y;
+    text.rotation.z = grave.rotation.z;
+    textGeometry.center();
+    scene.add(text);
+  });
+
   graves.add(grave);
 }
 
 // Floor
 const floor = new THREE.Mesh(
-  new THREE.PlaneGeometry(20, 20, 100, 100),
+  new THREE.PlaneGeometry(22, 22, 100, 100),
   new THREE.MeshStandardMaterial({
     alphaMap: floorAlphaTexture,
     transparent: true,
+    opacity: 1,
     map: floorColorTexture,
     aoMap: floorARMTexture,
     roughnessMap: floorARMTexture,
