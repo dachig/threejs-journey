@@ -13,9 +13,10 @@
     "vite-plugin-restart": "^0.4.1"
   },
   "dependencies": {
+    "@react-three/drei": "9.108",
+    "@react-three/fiber": "^8.16.8",
     "react": "18.3",
     "react-dom": "18.3",
-    "@react-three/fiber": "^8.16.8",
     "three": "^0.166.1"
   }
 }
