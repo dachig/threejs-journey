@@ -1,17 +1,20 @@
 import {
   Text,
-  Html,
   ContactShadows,
   PresentationControls,
   Float,
   Environment,
-  useGLTF,
+  Text3D,
+  Center,
+  useMatcapTexture,
 } from "@react-three/drei";
+import Macbook from "./macbook";
+import { useState } from "react";
 
 export default function Experience() {
-  const computer = useGLTF(
-    "https://vazxmixjsiawhamofees.supabase.co/storage/v1/object/public/models/macbook/model.gltf"
-  );
+  const [isClosed, setIsClosed] = useState(true);
+  const [matcapTexture] = useMatcapTexture("416BA7_A5B8D0_0D2549_65ABEB", 256);
+
   return (
     <>
       <Environment preset="city" />
@@ -34,30 +37,34 @@ export default function Experience() {
             rotation={[0.1, Math.PI, 0]}
             position={[0, 0.55, -1.15]}
           />
-          <primitive position-y={-1.2} object={computer.scene}>
-            <Html
-              transform
-              className="htmlScreen"
-              distanceFactor={1.17}
-              position={[0, 1.56, -1.4]}
-              rotation-x={-0.256}
-            >
-              {/* transform rotates and makes it move with the laptop when its dragged around */}
-              <iframe src="https://dachig.vercel.app/" frameborder="0"></iframe>
-            </Html>
-          </primitive>
-
+          <Macbook isClosed={isClosed} position-y={-1.2} />
           <Text
-            rotation-y={-1.6}
-            position={[2, 0.5, 0]}
+            onClick={() => setIsClosed(!isClosed)}
+            rotation-x={-Math.PI / 2}
+            position={[0.5, -0.6, 1.4]}
             font="/bangers-v20-latin-regular.woff"
             width={1}
-            fontSize={0.5}
+            fontSize={0.25}
             maxWidth={1}
-            color="lightblue"
           >
-            Dachi Giorgobiani
+            {isClosed ? "Open" : "Close"}
+            <meshMatcapMaterial matcap={matcapTexture} />
           </Text>
+
+          <Text3D
+            rotation-y={-1.6}
+            position={[2, 0.5, -1]}
+            bevelEnabled
+            bevelSegments={6}
+            bevelSize={0.02}
+            bevelOffset={0}
+            size={0.4}
+            height={0.01}
+            font={"/Bangers_Regular.json"}
+          >
+            {`Dachi\nGiorgobiani`}
+            <meshMatcapMaterial matcap={matcapTexture} />
+          </Text3D>
         </Float>
       </PresentationControls>
       <ContactShadows position-y={-1.4} opacity={0.5} scale={5} blur={2.5} />
