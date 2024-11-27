@@ -6,14 +6,12 @@ import {
   Environment,
   Text3D,
   Center,
-  useMatcapTexture,
 } from "@react-three/drei";
 import Macbook from "./macbook";
 import { useState } from "react";
 
 export default function Experience() {
   const [isClosed, setIsClosed] = useState(true);
-  const [matcapTexture] = useMatcapTexture("416BA7_A5B8D0_0D2549_65ABEB", 256);
 
   return (
     <>
@@ -33,7 +31,7 @@ export default function Experience() {
             width={2.5}
             height={1.65}
             intensity={65}
-            color="gray"
+            color="skyblue"
             rotation={[0.1, Math.PI, 0]}
             position={[0, 0.55, -1.15]}
           />
@@ -46,25 +44,22 @@ export default function Experience() {
             width={1}
             fontSize={0.25}
             maxWidth={1}
+            color="skyblue"
           >
             {isClosed ? "Open" : "Close"}
-            <meshMatcapMaterial matcap={matcapTexture} />
           </Text>
 
-          <Text3D
+          <Text
             rotation-y={-1.6}
-            position={[2, 0.5, -1]}
-            bevelEnabled
-            bevelSegments={6}
-            bevelSize={0.02}
-            bevelOffset={0}
-            size={0.4}
-            height={0.01}
-            font={"/Bangers_Regular.json"}
+            position={[2, 0.4, 0]}
+            font="/bangers-v20-latin-regular.woff"
+            width={1}
+            fontSize={0.5}
+            maxWidth={1}
+            color="skyblue"
           >
             {`Dachi\nGiorgobiani`}
-            <meshMatcapMaterial matcap={matcapTexture} />
-          </Text3D>
+          </Text>
         </Float>
       </PresentationControls>
       <ContactShadows position-y={-1.4} opacity={0.5} scale={5} blur={2.5} />
