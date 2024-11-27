@@ -27,14 +27,7 @@ export default function Experience() {
       >
         {/* Only moves the element its wrapped around UNLESS global is used, so orbitControls is not needed anymore */}
         <Float rotationIntensity={0.4}>
-          <rectAreaLight
-            width={2.5}
-            height={1.65}
-            intensity={65}
-            color="skyblue"
-            rotation={[0.1, Math.PI, 0]}
-            position={[0, 0.55, -1.15]}
-          />
+          
           <Macbook isClosed={isClosed} position-y={-1.2} />
           <Text
             onClick={() => setIsClosed(!isClosed)}

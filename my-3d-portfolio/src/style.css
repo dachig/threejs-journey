@@ -37,7 +37,7 @@ body,
 
 /* Example usage on an element */
 .fade-in {
-  animation: fadeIn 1.5s ease-in forwards; /* Adjust duration and timing function as needed */
+  animation: fadeIn 1.25s ease-in forwards; /* Adjust duration and timing function as needed */
 }
 
 .fade-out {

@@ -1,7 +1,5 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useGLTF, Html } from "@react-three/drei";
-import { useControls } from "leva";
-import { useState } from "react";
 import { useSpring, a } from "@react-spring/three"; // 'a' is the animated version of three.js components
 
 export default function Macbook({ isClosed }) {
@@ -157,6 +155,14 @@ export default function Macbook({ isClosed }) {
         </group>
 
         <a.group position={position} rotation={rotation} scale={5.796}>
+          <rectAreaLight
+            width={2.5}
+            height={1.65}
+            intensity={40}
+            color="skyblue"
+            position={[0, -0.5, -2]}
+            rotation={[Math.PI / 2, 0, 0]}
+          />
           <mesh
             castShadow
             receiveShadow
@@ -196,9 +202,10 @@ export default function Macbook({ isClosed }) {
             rotation={[-Math.PI, 0, -Math.PI]}
             scale={0.579}
           />
+
           <Html
             transform
-            className={isClosed ? "htmlScreen fade-out":"htmlScreen fade-in"}
+            className={isClosed ? "htmlScreen fade-out" : "htmlScreen fade-in"}
             distanceFactor={1.95}
             position={[-0.01, 0.01, -1.86]}
             rotation-x={Math.PI * 1.5}
