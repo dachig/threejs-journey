@@ -13,7 +13,7 @@ export default function Macbook({ isClosed }) {
     config: {
       mass: 0.3,
       tension: 120,
-      friction: 35,
+      friction: 50,
     },
   });
 
