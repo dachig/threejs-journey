@@ -15,6 +15,31 @@ body,
   width: 1024px;
   height: 670px;
   border: none;
-  border-radius: 20px;
   background: black;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Example usage on an element */
+.fade-in {
+  animation: fadeIn 1.5s ease-in forwards; /* Adjust duration and timing function as needed */
+}
+
+.fade-out {
+  animation: fadeOut 0.4s ease-out forwards; /* Adjust duration and timing function as needed */
 }

@@ -156,11 +156,7 @@ export default function Macbook({ isClosed }) {
           />
         </group>
 
-        <a.group
-          position={position}
-          rotation={rotation}
-          scale={5.796}
-        >
+        <a.group position={position} rotation={rotation} scale={5.796}>
           <mesh
             castShadow
             receiveShadow
@@ -202,7 +198,7 @@ export default function Macbook({ isClosed }) {
           />
           <Html
             transform
-            className="htmlScreen"
+            className={isClosed ? "htmlScreen fade-out":"htmlScreen fade-in"}
             distanceFactor={1.95}
             position={[-0.01, 0.01, -1.86]}
             rotation-x={Math.PI * 1.5}
