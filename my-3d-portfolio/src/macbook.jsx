@@ -1,18 +1,22 @@
 import React from "react";
 import { useGLTF, Html } from "@react-three/drei";
-import { useSpring, a } from "@react-spring/three"; // 'a' is the animated version of three.js components
-
+import { easings, useSpring, a } from "@react-spring/three"; // 'a' is the animated version of three.js components
+const closedConfig = {
+  mass: 0.3,
+  tension: 100,
+  friction: 50,
+};
+const openConfig = {
+  duration: 1000,
+  easing: (t) => t * t , 
+};
 export default function Macbook({ isClosed }) {
   const { nodes, materials } = useGLTF("/macbook.gltf");
 
   const { position, rotation } = useSpring({
     position: isClosed ? [0, -0.2, -10.7] : [0.007, -0.472, -10.412],
     rotation: isClosed ? [Math.PI, 0, 0] : [1.311, 0, 0],
-    config: {
-      mass: 0.3,
-      tension: 120,
-      friction: 50,
-    },
+    config: isClosed ? openConfig : closedConfig,
   });
 
   return (

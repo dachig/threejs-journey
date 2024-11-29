@@ -30,6 +30,9 @@ body,
   0% {
     opacity: 1;
   }
+  25%{
+    opacity: 1;
+  }
   100% {
     opacity: 0;
   }
@@ -41,5 +44,5 @@ body,
 }
 
 .fade-out {
-  animation: fadeOut 0.4s ease-out forwards; /* Adjust duration and timing function as needed */
+  animation: fadeOut 1s ease-out forwards; /* Adjust duration and timing function as needed */
 }

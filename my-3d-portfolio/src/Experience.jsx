@@ -12,7 +12,21 @@ import { useState } from "react";
 
 export default function Experience() {
   const [isClosed, setIsClosed] = useState(true);
-
+  const [audioOpen] = useState(() => {
+    return new Audio("/hit.mp3");
+  });
+  const [audioClose] = useState(() => {
+    return new Audio("/close-sound.mp3");
+  });
+  function playOpenSound() {
+    audioOpen.currentTime = 0;
+    audioOpen.volume = 0.5;
+    audioOpen.play();
+  }
+  function playCloseSound() {
+    audioClose.currentTime = 0;
+    audioClose.play();
+  }
   return (
     <>
       <Environment preset="city" />
@@ -27,10 +41,16 @@ export default function Experience() {
       >
         {/* Only moves the element its wrapped around UNLESS global is used, so orbitControls is not needed anymore */}
         <Float rotationIntensity={0.4}>
-          
           <Macbook isClosed={isClosed} position-y={-1.2} />
           <Text
-            onClick={() => setIsClosed(!isClosed)}
+            onClick={() => {
+              setIsClosed(!isClosed);
+              if (isClosed) playOpenSound();
+              else
+                setTimeout(() => {
+                  playCloseSound();
+                }, 900);
+            }}
             rotation-x={-Math.PI / 2}
             position={[0.5, -0.6, 1.4]}
             font="/bangers-v20-latin-regular.woff"
