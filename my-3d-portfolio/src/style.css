@@ -13,8 +13,9 @@ body,
 }
 .htmlScreen iframe {
   width: 1024px;
-  height: 670px;
+  height: 680px;
   border: none;
+  border-radius: 25px;
   background: black;
 }
 @keyframes fadeIn {

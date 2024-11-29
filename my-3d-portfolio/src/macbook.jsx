@@ -8,7 +8,7 @@ const closedConfig = {
 };
 const openConfig = {
   duration: 1000,
-  easing: (t) => t * t , 
+  easing: (t) => t * t,
 };
 export default function Macbook({ isClosed }) {
   const { nodes, materials } = useGLTF("/macbook.gltf");
@@ -160,10 +160,11 @@ export default function Macbook({ isClosed }) {
 
         <a.group position={position} rotation={rotation} scale={5.796}>
           <rectAreaLight
+            className={isClosed ? "fade-out" : "fade-in"}
             width={2.5}
             height={1.65}
             intensity={40}
-            color="skyblue"
+            color="lightblue"
             position={[0, -0.5, -2]}
             rotation={[Math.PI / 2, 0, 0]}
           />
@@ -211,7 +212,7 @@ export default function Macbook({ isClosed }) {
             transform
             className={isClosed ? "htmlScreen fade-out" : "htmlScreen fade-in"}
             distanceFactor={1.95}
-            position={[-0.01, 0.01, -1.86]}
+            position={[-0.01, -0.025, -1.86]}
             rotation-x={Math.PI * 1.5}
             occlude
           >
