@@ -71,7 +71,20 @@ body,
 }
 .difficulty {
   position: absolute;
-  top: 30%;
+  top: 40%;
   pointer-events: auto;
   cursor: pointer;
+  color: #ffffff;
+  font-size: 40px;
+  background: #00000033;
+  padding: 10px;
+}
+.difficulty p {
+  margin: 0;
+}
+.difficulty p:hover {
+  color: lightcoral;
+}
+.p-active {
+  color: red;
 }

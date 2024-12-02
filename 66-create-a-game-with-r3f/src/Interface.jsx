@@ -1,10 +1,13 @@
 import { useKeyboardControls } from "@react-three/drei";
 import useGame from "./stores/useGame";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { addEffect } from "@react-three/fiber";
 
 export default function Interface() {
   const time = useRef();
+  const [trapsCount, setTrapsCount] = useState(
+    useGame((state) => state.trapsCount)
+  );
 
   const forward = useKeyboardControls((state) => state.forward);
   const backward = useKeyboardControls((state) => state.backward);
@@ -15,8 +18,9 @@ export default function Interface() {
   const restart = useGame((state) => state.restart);
   const phase = useGame((state) => state.phase);
 
-  function setDifficulty() {
-    useGame.setState({ trapsCount: 3 });
+  function setDifficulty(trapsCount) {
+    useGame.setState({ trapsCount });
+    setTrapsCount(trapsCount);
   }
 
   useEffect(() => {
@@ -34,7 +38,7 @@ export default function Interface() {
         time.current.textContent = elapsedTime;
       }
     });
-
+    console.log(trapsCount);
     return () => {
       unsubscribeEffect();
     };
@@ -48,7 +52,31 @@ export default function Interface() {
           RESTART
         </div>
       )}
-      <div className="difficulty" onClick={setDifficulty}>CLICK</div>
+
+      {phase === "ready" && (
+        <div className="difficulty">
+          <p
+            className={`${trapsCount == 50 ? "p-active" : ""}`}
+            onClick={() => {
+              setDifficulty(50);
+            }}
+          >
+            EXTREME
+          </p>
+          <p
+            className={`${trapsCount == 15 ? "p-active" : ""}`}
+            onClick={() => setDifficulty(15)}
+          >
+            DEFAULT
+          </p>
+          <p
+            className={`${trapsCount == 5 ? "p-active" : ""}`}
+            onClick={() => setDifficulty(5)}
+          >
+            EASY
+          </p>
+        </div>
+      )}
 
       <div className="controls">
         <div className="raw">

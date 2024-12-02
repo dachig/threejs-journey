@@ -4,7 +4,7 @@ import { subscribeWithSelector } from "zustand/middleware";
 export default create(
   subscribeWithSelector((set) => {
     return {
-      trapsCount: 10,
+      trapsCount: 15,
       trapsSeed: 0,
       phase: "ready",
       startTime: 0,
