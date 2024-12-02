@@ -1,10 +1,11 @@
 import * as THREE from "three";
-import { RigidBody } from "@react-three/rapier";
+import { RigidBody, CuboidCollider } from "@react-three/rapier";
 import { useFrame } from "@react-three/fiber";
-import { useGLTF } from "@react-three/drei";
+import { useGLTF, Float, Text } from "@react-three/drei";
 import { useRef } from "react";
 import { Quaternion } from "three";
 import { useState } from "react";
+import { useMemo } from "react";
 
 // geometry
 const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
@@ -24,6 +25,20 @@ function BlockStart({ position = [0, 0, 0] }) {
         scale={[4, 0.2, 4]}
         receiveShadow
       />
+      <Float>
+        <Text
+          maxWidth={1}
+          scale={0.33}
+          font="/bebas-neue-v9-latin-regular.woff"
+          position={[0.75, 0.65, 0]}
+          textAlign="right"
+          lineHeight={0.75}
+          rotation-y={-0.5}
+        >
+          Marble Race
+          <meshBasicMaterial toneMapped={false} />
+        </Text>
+      </Float>
     </group>
   );
 }
@@ -167,6 +182,15 @@ function BlockEnd({ position = [0, 0, 0] }) {
         scale={[4, 0.2, 4]}
         receiveShadow
       />
+      <Text
+        scale={1}
+        font="/bebas-neue-v9-latin-regular.woff"
+        position={[0, 2, 2]}
+  
+      >
+        Finish
+        <meshBasicMaterial toneMapped={false} />
+      </Text>
       <RigidBody
         type="fixed"
         colliders="hull"
@@ -180,17 +204,67 @@ function BlockEnd({ position = [0, 0, 0] }) {
   );
 }
 
+function Bounds({ length = 1 }) {
+  return (
+    <>
+      {/* right wall */}
+      <RigidBody type="fixed" restitution={0.2} friction={0}>
+        <mesh
+          geometry={boxGeometry}
+          material={wallMaterial}
+          position={[2.15, 0.75, -(length * 2) + 2]}
+          scale={[0.3, 1.5, 4 * length]}
+          castShadow
+        />
+        {/* left wall */}
+        <mesh
+          geometry={boxGeometry}
+          material={wallMaterial}
+          position={[-2.15, 0.75, -(length * 2) + 2]}
+          scale={[0.3, 1.5, 4 * length]}
+          receiveShadow
+        />
+        {/* back wall */}
+        <mesh
+          geometry={boxGeometry}
+          material={wallMaterial}
+          position={[0, 0.75, -(length * 4) + 2]}
+          scale={[4, 1.5, 0.3]}
+          receiveShadow
+        />
+        {/* floor cuboid collider goes here to prevent falling through floor */}
+        <CuboidCollider
+          args={[2, 0.1, 2 * length]}
+          position={[0, -0.1, -(length * 2) + 2]}
+          restitution={0.2}
+          friction={1}
+        />
+      </RigidBody>
+    </>
+  );
+}
+
 export function Level({
   trapsCount = 5,
   types = [BlockSpinner, BlockLimbo, BlockAxe],
+  trapsSeed = 0,
 }) {
+  const blocks = useMemo(() => {
+    const blocks = [];
+    for (let i = 0; i < trapsCount; i++) {
+      const type = types[Math.floor(Math.random() * types.length)];
+      blocks.push(type);
+    }
+    return blocks;
+  }, [trapsCount, types, trapsSeed]);
   return (
     <>
       <BlockStart position={[0, 0, 0]} />
-      {/* <BlockSpinner position={[0, 0, 12]} />
-      <BlockLimbo position={[0, 0, 8]} />
-      <BlockAxe position={[0, 0, 4]} />
-      <BlockEnd position={[0, 0, 0]} /> */}
+      {blocks.map((Block, index) => (
+        <Block key={index} position={[0, 0, -(index + 1) * 4]} />
+      ))}
+      <BlockEnd position={[0, 0, -((trapsCount + 1) * 4)]} />
+      <Bounds length={trapsCount + 2} />
     </>
   );
 }
