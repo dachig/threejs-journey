@@ -14,8 +14,10 @@ export default function Interface() {
 
   const restart = useGame((state) => state.restart);
   const phase = useGame((state) => state.phase);
-  const startTime = useGame((state) => state.startTime);
-  const endTime = useGame((state) => state.endTime);
+
+  function setDifficulty() {
+    useGame.setState({ trapsCount: 3 });
+  }
 
   useEffect(() => {
     const unsubscribeEffect = addEffect(() => {
@@ -46,6 +48,7 @@ export default function Interface() {
           RESTART
         </div>
       )}
+      <div className="difficulty" onClick={setDifficulty}>CLICK</div>
 
       <div className="controls">
         <div className="raw">

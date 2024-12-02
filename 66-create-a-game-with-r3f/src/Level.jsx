@@ -186,12 +186,12 @@ function BlockEnd({ position = [0, 0, 0] }) {
         scale={1}
         font="/bebas-neue-v9-latin-regular.woff"
         position={[0, 2, 2]}
-  
       >
         Finish
         <meshBasicMaterial toneMapped={false} />
       </Text>
       <RigidBody
+        key={position}
         type="fixed"
         colliders="hull"
         position={[0, 0.2, 0]}
@@ -208,28 +208,28 @@ function Bounds({ length = 1 }) {
   return (
     <>
       {/* right wall */}
-      <RigidBody type="fixed" restitution={0.2} friction={0}>
+      <RigidBody key={length} type="fixed" restitution={0.2} friction={0}>
         <mesh
           geometry={boxGeometry}
           material={wallMaterial}
-          position={[2.15, 0.75, -(length * 2) + 2]}
-          scale={[0.3, 1.5, 4 * length]}
+          position={[2.15, 1.5, -(length * 2) + 2]}
+          scale={[0.3, 3, 4 * length]}
           castShadow
         />
         {/* left wall */}
         <mesh
           geometry={boxGeometry}
           material={wallMaterial}
-          position={[-2.15, 0.75, -(length * 2) + 2]}
-          scale={[0.3, 1.5, 4 * length]}
+          position={[-2.15, 1.5, -(length * 2) + 2]}
+          scale={[0.3, 3, 4 * length]}
           receiveShadow
         />
         {/* back wall */}
         <mesh
           geometry={boxGeometry}
           material={wallMaterial}
-          position={[0, 0.75, -(length * 4) + 2]}
-          scale={[4, 1.5, 0.3]}
+          position={[0, 1.5, -(length * 4) + 2]}
+          scale={[4, 3, 0.3]}
           receiveShadow
         />
         {/* floor cuboid collider goes here to prevent falling through floor */}

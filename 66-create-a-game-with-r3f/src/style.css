@@ -69,3 +69,9 @@ body,
 .controls .key.active {
   background: #ffffff99;
 }
+.difficulty {
+  position: absolute;
+  top: 30%;
+  pointer-events: auto;
+  cursor: pointer;
+}

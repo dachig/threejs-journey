@@ -50,3 +50,4 @@ coverage/
 
 # Jest snapshot folder (optional, if using Jest for testing)
 __snapshots__/
+.vercel
