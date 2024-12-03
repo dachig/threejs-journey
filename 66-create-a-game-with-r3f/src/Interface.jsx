@@ -38,7 +38,6 @@ export default function Interface() {
         time.current.textContent = elapsedTime;
       }
     });
-    console.log(trapsCount);
     return () => {
       unsubscribeEffect();
     };

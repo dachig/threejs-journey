@@ -14,6 +14,13 @@ export default function Player() {
     () => new THREE.Vector3(10, 10, 10)
   );
   const [smoothedCameraTarget] = useState(() => new THREE.Vector3());
+  const [hitSound] = useState(() => {
+    return new Audio("/hit.mp3");
+  });
+  function collisionEnter() {
+    hitSound.currentTime = 0;
+    hitSound.play();
+  }
 
   const start = useGame((state) => state.start);
   const end = useGame((state) => state.end);
@@ -116,6 +123,7 @@ export default function Player() {
         position={[0, 1, 0]}
         linearDamping={0.5}
         angularDamping={0.5}
+        onCollisionEnter={collisionEnter}
       >
         <mesh castShadow>
           <icosahedronGeometry args={[0.3, 1]} />
