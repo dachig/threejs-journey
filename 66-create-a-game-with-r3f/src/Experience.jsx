@@ -12,7 +12,7 @@ export default function Experience() {
 
   return (
     <>
-      <Perf />
+      {/* <Perf /> */}
       <color args={["#000000"]} attach="background" />
       <OrbitControls makeDefault />
       <Sparkles

@@ -4,6 +4,7 @@ import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience.jsx";
 import { KeyboardControls } from "@react-three/drei";
 import Interface from "./Interface.jsx";
+import { Analytics } from "@vercel/analytics/react";
 
 const root = ReactDOM.createRoot(document.querySelector("#root"));
 
@@ -17,6 +18,7 @@ root.render(
       { name: "jump", keys: ["Space"] },
     ]}
   >
+    <Analytics />
     <Canvas
       shadows
       camera={{
