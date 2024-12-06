@@ -4,15 +4,16 @@ import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience.jsx";
 import { Analytics } from "@vercel/analytics/react";
 import { Leva } from "leva";
+import MobileExperience from "./MobileExperience.jsx";
 
 const root = ReactDOM.createRoot(document.querySelector("#root"));
 
 function App() {
   function checkViewportSize() {
     if (window.innerWidth <= 600) {
-      return [0, 1.5, 5];
+      return [0, 0, 7];
     } else if (window.innerWidth > 600 && window.innerWidth < 1024) {
-      return [-1, 0, 2];
+      return [0, 0, 3];
     } else {
       return [-2, 1.5, 3.75];
     }
@@ -30,7 +31,7 @@ function App() {
           position: checkViewportSize(),
         }}
       >
-        <Experience />
+        {window.innerWidth > 1024 ? <Experience /> : <MobileExperience />}
         <Analytics />
       </Canvas>
     </>
