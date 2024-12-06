@@ -12,6 +12,7 @@ import { useState } from "react";
 
 export default function Experience() {
   const [isClosed, setIsClosed] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [audioOpen] = useState(() => {
     return new Audio("/hit.mp3");
   });
@@ -42,25 +43,34 @@ export default function Experience() {
         {/* Only moves the element its wrapped around UNLESS global is used, so orbitControls is not needed anymore */}
         <Float rotationIntensity={0.4}>
           <Macbook isClosed={isClosed} position-y={-1.2} />
-          <Text
-            onClick={() => {
-              setIsClosed(!isClosed);
-              if (isClosed) playOpenSound();
-              else
+          {!loading && (
+            <Text
+              onClick={() => {
+                setLoading(true);
+                setIsClosed(!isClosed);
                 setTimeout(() => {
-                  playCloseSound();
-                }, 900);
-            }}
-            rotation-x={-Math.PI / 2}
-            position={[0.5, -0.6, 1.4]}
-            font="/bangers-v20-latin-regular.woff"
-            width={1}
-            fontSize={0.25}
-            maxWidth={1}
-            color="skyblue"
-          >
-            {isClosed ? "Open" : "Close"}
-          </Text>
+                  setLoading(false);
+                }, 1500);
+                if (isClosed) playOpenSound();
+                else {
+                  setLoading(true);
+                  setTimeout(() => {
+                    playCloseSound();
+                    setLoading(false);
+                  }, 900);
+                }
+              }}
+              rotation-x={-Math.PI / 2}
+              position={[0.5, -0.6, 1.4]}
+              font="/bangers-v20-latin-regular.woff"
+              width={1}
+              fontSize={0.25}
+              maxWidth={1}
+              color="skyblue"
+            >
+              {isClosed ? "Open" : "Close"}
+            </Text>
+          )}
 
           <Text
             rotation-y={-1.6}
