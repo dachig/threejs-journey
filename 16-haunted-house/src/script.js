@@ -43,7 +43,7 @@ const names = [
  * Base
  */
 // Debug
-const gui = new GUI();
+// const gui = new GUI();
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
@@ -196,12 +196,12 @@ const walls = new THREE.Mesh(
 );
 walls.position.y = 1.25;
 house.add(walls);
-gui
-  .add(walls.material, "displacementBias")
-  .min(-1)
-  .max(1)
-  .step(0.001)
-  .name("wallsDisplacement");
+// gui
+//   .add(walls.material, "displacementBias")
+//   .min(-1)
+//   .max(1)
+//   .step(0.001)
+//   .name("wallsDisplacement");
 
 // Roof
 const roof = new THREE.Mesh(
@@ -345,12 +345,12 @@ const floor = new THREE.Mesh(
     displacementBias: -0.2,
   })
 );
-gui
-  .add(floor.material, "displacementBias")
-  .min(-1)
-  .max(1)
-  .step(0.001)
-  .name("floorDisplacement");
+// gui
+//   .add(floor.material, "displacementBias")
+//   .min(-1)
+//   .max(1)
+//   .step(0.001)
+//   .name("floorDisplacement");
 floor.rotation.x = -Math.PI * 0.5;
 scene.add(floor);
 /**
