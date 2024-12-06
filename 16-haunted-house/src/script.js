@@ -233,7 +233,6 @@ const door = new THREE.Mesh(
     normalMap: doorNormalTexture,
     metalnessMap: doorMetalnessTexture,
     roughnessMap: doorRoughnessTexture,
-    color: "grey",
   })
 );
 door.position.y = 1;
@@ -417,7 +416,9 @@ scene.add(camera);
 // Controls
 const controls = new OrbitControls(camera, canvas);
 controls.enableDamping = true;
-
+controls.minDistance = 5;
+controls.maxDistance = 15;
+controls.maxPolarAngle = Math.PI / 2.2;
 /**
  * Renderer
  */
