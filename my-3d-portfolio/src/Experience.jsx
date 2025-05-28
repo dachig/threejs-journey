@@ -41,7 +41,7 @@ export default function Experience() {
         snap={{ mass: 4, tension: 400 }}
       >
         {/* Only moves the element its wrapped around UNLESS global is used, so orbitControls is not needed anymore */}
-        <Float rotationIntensity={0.4}>
+        <Float rotationIntensity={0.2}>
           <Macbook isClosed={isClosed} position-y={-1.2} />
           {!loading && (
             <Text
@@ -62,11 +62,11 @@ export default function Experience() {
               }}
               rotation-x={-Math.PI / 2}
               position={[0.5, -0.6, 1.4]}
-              font="/bangers-v20-latin-regular.woff"
+              font="/RobotoMono-SemiBold.ttf"
               width={1}
               fontSize={0.25}
               maxWidth={1}
-              color="skyblue"
+              color="#ccd6f6"
             >
               {isClosed ? "Open" : "Close"}
             </Text>
@@ -75,11 +75,11 @@ export default function Experience() {
           <Text
             rotation-y={-1.6}
             position={[2, 0.4, 0]}
-            font="/bangers-v20-latin-regular.woff"
+            font="/RobotoMono-SemiBold.ttf"
             width={1}
             fontSize={0.5}
             maxWidth={1}
-            color="skyblue"
+            color="#ccd6f6"
           >
             {`Dachi\nGiorgobiani`}
           </Text>

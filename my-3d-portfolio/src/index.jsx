@@ -4,7 +4,6 @@ import { Canvas } from "@react-three/fiber";
 import Experience from "./Experience.jsx";
 import { Analytics } from "@vercel/analytics/react";
 import { Leva } from "leva";
-import MobileExperience from "./MobileExperience.jsx";
 
 const root = ReactDOM.createRoot(document.querySelector("#root"));
 
@@ -31,7 +30,13 @@ function App() {
           position: checkViewportSize(),
         }}
       >
-        {window.innerWidth > 1024 ? <Experience /> : <MobileExperience />}
+        {window.innerWidth > 1024 ? (
+          <Experience />
+        ) : (
+          window.location.replace(
+            "https://dev-portfolio-git-main-dachigs-projects.vercel.app/"
+          )
+        )}
         <Analytics />
       </Canvas>
     </>
