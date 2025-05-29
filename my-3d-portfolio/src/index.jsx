@@ -55,9 +55,7 @@ function App() {
         {window.innerWidth > 1024 ? (
           <Experience onClosedChange={setIsChildClosed} />
         ) : (
-          window.location.replace(
-            "https://dev-portfolio-git-main-dachigs-projects.vercel.app/"
-          )
+          window.location.replace("https://dachig-dachigs-projects.vercel.app/")
         )}
         <Analytics />
       </Canvas>
