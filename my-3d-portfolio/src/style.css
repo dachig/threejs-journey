@@ -51,10 +51,12 @@ body,
     opacity: 0;
   }
 }
-
+.cursor-pointer:hover {
+  cursor: pointer;
+}
 /* Example usage on an element */
 .fade-in {
-  animation: fadeIn 1.25s ease-in forwards; /* Adjust duration and timing function as needed */
+  animation: fadeIn 0.75s ease-in forwards; /* Adjust duration and timing function as needed */
 }
 
 .fade-out {

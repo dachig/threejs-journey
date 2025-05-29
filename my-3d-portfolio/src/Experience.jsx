@@ -10,8 +10,12 @@ import gsap from "gsap";
 
 export default function Experience({ onClosedChange }) {
   const [isClosed, setIsClosed] = useState(true);
-  const macRef = useRef();
+  const [isActuallyClosed, setIsActuallyClosed] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [audioOpen] = useState(() => new Audio("/hit.mp3"));
+  const [audioClose] = useState(() => new Audio("/close-sound.mp3"));
 
+  const macRef = useRef();
   useEffect(() => {
     if (!macRef.current) return;
     gsap.killTweensOf(macRef.current.rotation);
@@ -33,16 +37,22 @@ export default function Experience({ onClosedChange }) {
     });
   }, [isClosed]);
 
-  const [loading, setLoading] = useState(false);
-  const [audioOpen] = useState(() => new Audio("/hit.mp3"));
-  const [audioClose] = useState(() => new Audio("/close-sound.mp3"));
+  const toggleScreen = () => {
+    const nextClosed = !isClosed;
+    const play = nextClosed ? () => {} : playOpenSound;
+    play();
+    setIsClosed(nextClosed);
+    onClosedChange(nextClosed);
 
-  const toggle = () => {
-    setIsClosed((prev) => {
-      const next = !prev;
-      onClosedChange(next);
-      return next;
-    });
+    const duration = nextClosed ? 750 : 1000;
+
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+      setIsActuallyClosed(nextClosed);
+      if (nextClosed) playCloseSound();
+    }, duration);
   };
 
   function playOpenSound() {
@@ -66,28 +76,17 @@ export default function Experience({ onClosedChange }) {
         azimuth={[-1, 0.75]}
         config={{ mass: 2, tension: 400 }}
         snap={{ mass: 4, tension: 400 }}
-        enabled={isClosed ? true : false}
+        enabled={isClosed}
       >
         <group ref={macRef} position-y={-1.2}>
-          <Macbook isClosed={isClosed} />
+          <Macbook isClosed={isClosed} isActuallyClosed={isActuallyClosed} />
           {!loading && (
             <Text
               onClick={() => {
-                setLoading(true);
-                toggle();
-                setTimeout(() => setLoading(false), 1500);
-                if (isClosed) playOpenSound();
-                else {
-                  setLoading(true);
-                  setTimeout(() => {
-                    playCloseSound();
-                    setLoading(false);
-                  }, 900);
-                }
+                toggleScreen();
               }}
-              rotation-x={isClosed ? -Math.PI / 2 : 0}
-              rotation-y={isClosed ? 0 : -Math.PI / 8}
-              position={isClosed ? [0.5, -0.6, 1.4] : [1.75, -0.25, -1]}
+              rotation-y={isClosed ? -Math.PI / 2 : -Math.PI / 8}
+              position={isClosed ? [1.75, -0.4, 0.5] : [1.75, -0.25, -1]}
               font="/RobotoMono-SemiBold.ttf"
               width={1}
               fontSize={isClosed ? 0.25 : 0.15}

@@ -1,5 +1,6 @@
 import { useGLTF, Html } from "@react-three/drei";
-import { useSpring, a } from "@react-spring/three"; // 'a' is the animated version of three.js components
+import { useSpring, a } from "@react-spring/three";
+
 const closedConfig = {
   mass: 0.3,
   tension: 100,
@@ -9,7 +10,7 @@ const openConfig = {
   duration: 1000,
   easing: (t) => t * t,
 };
-export default function Macbook({ isClosed }) {
+export default function Macbook({ isClosed, isActuallyClosed }) {
   const { nodes, materials } = useGLTF("/macbook.gltf");
 
   const { position, rotation } = useSpring({
@@ -206,16 +207,16 @@ export default function Macbook({ isClosed }) {
             rotation={[-Math.PI, 0, -Math.PI]}
             scale={0.579}
           />
-          {!isClosed && (
+          {!isActuallyClosed && (
             <Html
               transform
               className={
                 isClosed ? "htmlScreen fade-out" : "htmlScreen fade-in"
               }
-              distanceFactor={1.94}
+              distanceFactor={1.9}
               position={[-0.01, -0.025, -1.86]}
               rotation-x={Math.PI * 1.5}
-              occlude
+              occlude={isActuallyClosed ? true : false}
             >
               <iframe
                 style={{ borderRadius: 4 }}
