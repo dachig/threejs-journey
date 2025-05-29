@@ -1,6 +1,5 @@
-import React from "react";
 import { useGLTF, Html } from "@react-three/drei";
-import { easings, useSpring, a } from "@react-spring/three"; // 'a' is the animated version of three.js components
+import { useSpring, a } from "@react-spring/three"; // 'a' is the animated version of three.js components
 const closedConfig = {
   mass: 0.3,
   tension: 100,
@@ -211,12 +210,15 @@ export default function Macbook({ isClosed }) {
           <Html
             transform
             className={isClosed ? "htmlScreen fade-out" : "htmlScreen fade-in"}
-            distanceFactor={1.95}
+            distanceFactor={1.94}
             position={[-0.01, -0.025, -1.86]}
             rotation-x={Math.PI * 1.5}
             occlude
           >
-            <iframe src="https://dev-portfolio-git-main-dachigs-projects.vercel.app/" />
+            <iframe
+              style={{ borderRadius: 4 }}
+              src="https://dev-portfolio-git-main-dachigs-projects.vercel.app/"
+            />
           </Html>
         </a.group>
       </group>

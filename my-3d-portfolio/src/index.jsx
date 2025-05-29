@@ -1,37 +1,59 @@
 import "./style.css";
 import ReactDOM from "react-dom/client";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import Experience from "./Experience.jsx";
 import { Analytics } from "@vercel/analytics/react";
 import { Leva } from "leva";
+import { useEffect, useState } from "react";
+import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import gsap from "gsap";
 
 const root = ReactDOM.createRoot(document.querySelector("#root"));
 
 function App() {
-  function checkViewportSize() {
-    if (window.innerWidth <= 600) {
-      return [0, 0, 7];
-    } else if (window.innerWidth > 600 && window.innerWidth < 1024) {
-      return [0, 0, 3];
-    } else {
-      return [-2, 1.5, 3.75];
-    }
+  const [isChildClosed, setIsChildClosed] = useState(true);
+
+  const closedPos = [-2, 1, 4];
+  const openPos = [0.95, 1.25, 0.65];
+  const closedTgt = [1, -1, -2];
+  const openTgt = [0, 0.5, -2];
+  const to = isChildClosed ? closedPos : openPos;
+  const lookAt = isChildClosed ? closedTgt : openTgt;
+
+  function TweenCamera({ to, lookAt }) {
+    const { camera } = useThree();
+
+    useEffect(() => {
+      gsap.killTweensOf(camera.position);
+      gsap.to(camera.position, {
+        x: to[0],
+        y: to[1],
+        z: to[2],
+        duration: 1.25,
+        ease: "power2.inOut",
+        onUpdate: () => {
+          camera.updateProjectionMatrix();
+        },
+      });
+    }, [to, lookAt, camera]);
+
+    return null;
   }
 
   return (
     <>
+      <h1 className="sr-only">Welcome to my 3D portfolio</h1>
+      <h2 className="sr-only">Custom website development</h2>
       <Leva />
-      <Canvas
-        className="r3f"
-        camera={{
-          fov: 45,
-          near: 0.1,
-          far: 2000,
-          position: checkViewportSize(),
-        }}
-      >
+      <Canvas className="r3f">
+        <TweenCamera to={to} lookAt={lookAt} />
+        <OrbitControls
+          enableRotate={false}
+          target={[1.25, 0, -2]}
+          enableZoom={false}
+        />
         {window.innerWidth > 1024 ? (
-          <Experience />
+          <Experience onClosedChange={setIsChildClosed} />
         ) : (
           window.location.replace(
             "https://dev-portfolio-git-main-dachigs-projects.vercel.app/"
