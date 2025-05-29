@@ -206,20 +206,23 @@ export default function Macbook({ isClosed }) {
             rotation={[-Math.PI, 0, -Math.PI]}
             scale={0.579}
           />
-
-          <Html
-            transform
-            className={isClosed ? "htmlScreen fade-out" : "htmlScreen fade-in"}
-            distanceFactor={1.94}
-            position={[-0.01, -0.025, -1.86]}
-            rotation-x={Math.PI * 1.5}
-            occlude
-          >
-            <iframe
-              style={{ borderRadius: 4 }}
-              src="https://dev-portfolio-git-main-dachigs-projects.vercel.app/"
-            />
-          </Html>
+          {!isClosed && (
+            <Html
+              transform
+              className={
+                isClosed ? "htmlScreen fade-out" : "htmlScreen fade-in"
+              }
+              distanceFactor={1.94}
+              position={[-0.01, -0.025, -1.86]}
+              rotation-x={Math.PI * 1.5}
+              occlude
+            >
+              <iframe
+                style={{ borderRadius: 4 }}
+                src="https://dev-portfolio-git-main-dachigs-projects.vercel.app/"
+              />
+            </Html>
+          )}
         </a.group>
       </group>
     </group>
